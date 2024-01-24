@@ -1,12 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRouter from './router/AppRouter';
+
+const theme = createTheme();
 
 function App() {
   return (
-    <div className="App">
-      <AppRouter/>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <AppRouter />
+      </div>
+    </ThemeProvider>
   );
 }
 

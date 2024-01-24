@@ -34,7 +34,7 @@ export const register = (userInfo, navigate) => async (dispatch) => {
             email: res.data?.user?.email,
         };
         dispatch(auth(payload));
-        navigate('/login');
+        navigate('/');
         toast.success("User registered successfully");
         // console.log("User registered successfully")
     } catch (error) {
@@ -52,10 +52,12 @@ export const login = (userInfo, navigate) => async (dispatch) => {
         token: res.data.token,
         currentUser: res.data.name,
         email: res.data?.user?.email,
+        id:res.data.id,
       };
       sessionStorage.setItem('name', res.data.name);
       sessionStorage.setItem('token', res.data.token);
       sessionStorage.setItem('email', res.data.email);
+      sessionStorage.setItem('id', res.data.id);
       dispatch(auth(payload));
       navigate('/'); 
     //   console.log('User logged in successfully');
@@ -74,7 +76,7 @@ export const login = (userInfo, navigate) => async (dispatch) => {
       if (res.status === 200) {
         dispatch(auth({ token: null, currentUser: false, email: '' }));
         sessionStorage.clear();
-        navigate('/login');
+        navigate('/');
         toast.success("User successfully Logged out!");
         // console.log('User successfully logged out!');
       }

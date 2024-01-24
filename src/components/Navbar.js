@@ -20,7 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { StyledBadge, modalStyle, modalStyleLogin } from "../helpers/styles";
-import {pages} from "../helpers/Constants"
+import { pages } from "../helpers/constants/Constants"
+import logo from "../helpers/images/logo.jpg"
 
 
 const ResponsiveAppBar = () => {
@@ -29,7 +30,7 @@ const ResponsiveAppBar = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
 
-//navmenu and usermenu
+  //navmenu and usermenu
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenNavMenu = (event) => {
@@ -48,7 +49,7 @@ const ResponsiveAppBar = () => {
   //Dropdown Menü
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  
+
   const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
@@ -102,10 +103,9 @@ const ResponsiveAppBar = () => {
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -121,8 +121,10 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <Avatar src={logo}>
+            </Avatar>
           </Typography>
+
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -225,7 +227,7 @@ const ResponsiveAppBar = () => {
                 <Box>
                   <MenuItem
                     component="a"
-
+                    href='/Profile'
                     sx={{
                       width: '100%',
                       textAlign: 'left',
@@ -282,7 +284,7 @@ const ResponsiveAppBar = () => {
             >
               <Box sx={modalStyle}>
                 <Typography variant="h6" component="h2" style={{ textAlign: "center", color: "#1976D2" }}>
-                Registrieren
+                  Registrieren
                 </Typography>
                 <form onSubmit={handleSubmit}>
                   <TextField
@@ -317,12 +319,12 @@ const ResponsiveAppBar = () => {
                   />
                   <Box style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '1rem' }}>
                     <Button onClick={handleSubmit} type="submit" variant="contained" color="primary">
-                    Registrieren
+                      Registrieren
                     </Button>
                   </Box>
                 </form>
                 <Typography style={{ marginTop: '2.5rem', textAlign: "center" }}>
-                Sie haben bereits ein Konto? <a href='#' onClick={() => {closeModal(); openLoginModal();}}>Anmelden</a>
+                  Sie haben bereits ein Konto? <a href='#' onClick={() => { closeModal(); openLoginModal(); }}>Anmelden</a>
                 </Typography>
               </Box>
             </Modal>
@@ -364,7 +366,7 @@ const ResponsiveAppBar = () => {
                   </Box>
                 </form>
                 <Typography style={{ marginTop: '2.5rem', textAlign: "center" }}>
-                Sie haben noch kein Konto? <a href='#' onClick={() => {openModal(); closeLoginModal();}}>Registrieren</a>
+                  Sie haben noch kein Konto? <a href='#' onClick={() => { openModal(); closeLoginModal(); }}>Registrieren</a>
                 </Typography>
               </Box>
             </Modal>
