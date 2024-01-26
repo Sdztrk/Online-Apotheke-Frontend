@@ -1,7 +1,7 @@
 // ProfilePage.js
 
 import React, { useEffect, useState } from 'react';
-import ProfileCard from '../components/ProfileCard';
+import ProfileCard from '../components/cards/ProfileCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../redux/profileSlice';
 

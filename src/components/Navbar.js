@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, register, login } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -30,9 +30,11 @@ const ResponsiveAppBar = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
 
-  //navmenu and usermenu
+  //navmenu and usermenu email val
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [emailErrorRegister, setEmailErrorRegister] = useState(false);
+  const [emailErrorLogin, setEmailErrorLogin] = useState(false);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -76,6 +78,12 @@ const ResponsiveAppBar = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //email validation
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email);
+    if (!isEmailValid) {
+      setEmailErrorRegister(true);
+      return; // Do not proceed with form submission if email is invalid
+    }
     // Dispatch the register action
     await dispatch(register(formValues, navigate));
     // Closing register popup after register
@@ -94,11 +102,24 @@ const ResponsiveAppBar = () => {
   };
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    //email validation
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginFormData.email);
+    if (!isEmailValid) {
+      setEmailErrorLogin(true);
+      return; // Do not proceed with form submission if email is invalid
+    }
+    
     // Dispatch the login action
     await dispatch(login(loginFormData, navigate));
     // Closing login popup after register
     closeLoginModal()
   };
+
+
+
+  //Getting how many products in the shoppingcard
+  const shoppingCardItems = JSON.parse(sessionStorage.getItem('shoppingCard')) || [];
+
 
 
 
@@ -195,8 +216,8 @@ const ResponsiveAppBar = () => {
           </Box>
 
 
-          <IconButton aria-label="cart" sx={{ width: "80px", width: "80px" }}>
-            <StyledBadge badgeContent={4} color="primary">
+          <IconButton aria-label="cart" sx={{ width: "80px", width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
+            <StyledBadge badgeContent={shoppingCardItems.length} color="primary">
               <ShoppingCartOutlinedIcon sx={{ color: "white", fontSize: "large", width: "30px", height: "40px" }} />
             </StyledBadge>
           </IconButton>
@@ -281,6 +302,7 @@ const ResponsiveAppBar = () => {
               onClose={closeModal}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
+              style={{ backdropFilter: "blur(10px)" }}
             >
               <Box sx={modalStyle}>
                 <Typography variant="h6" component="h2" style={{ textAlign: "center", color: "#1976D2" }}>
@@ -306,6 +328,8 @@ const ResponsiveAppBar = () => {
                     required
                     fullWidth
                     margin="normal"
+                    error={emailErrorRegister}
+                    helperText={emailErrorRegister ? "Invalid email address" : ""}
                   />
                   <TextField
                     label="Passwort"
@@ -333,6 +357,7 @@ const ResponsiveAppBar = () => {
               onClose={closeLoginModal}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
+              style={{ backdropFilter: "blur(10px)" }}
             >
               <Box sx={modalStyleLogin}>
                 <Typography variant="h6" component="h2" style={{ textAlign: "center", color: "#1976D2" }}>
@@ -348,6 +373,8 @@ const ResponsiveAppBar = () => {
                     required
                     fullWidth
                     margin="normal"
+                    // error={emailErrorLogin}
+                    // helperText={emailErrorLogin ? "Invalid email address" : ""}
                   />
                   <TextField
                     label="Passwort"

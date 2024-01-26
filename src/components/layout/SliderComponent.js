@@ -1,5 +1,5 @@
 import React from 'react'
-import SliderCards from './SliderCards';
+import SliderCards from '../cards/SliderCards';
 import Slider from 'react-slick';
 import { Box, Typography } from '@mui/material';
 import 'slick-carousel/slick/slick.css';

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from '@mui/material';
-import { categories } from "../helpers/constants/categoriesConstants"
-import ComplaintCards from '../components/layout/ComplaintCards';
+import { categories } from "../helpers/constants/categoriesConstants";
+import ComplaintCards from '../components/cards/ComplaintCards';
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@mui/material';
 import SliderComponent from '../components/layout/SliderComponent';
+import Recommendation from '../components/layout/Recommendation';
 
 const LandingPage = () => {
   // Use a breakpoint value to determine when to render the SliderComponent
@@ -22,6 +23,7 @@ const LandingPage = () => {
           ))}
         </Grid>
         {breakpoint && <SliderComponent />}
+        <Recommendation/>
       </Box>
     </>
   );
