@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import MedicineCard from '../cards/MedicineCard';
 import { useDispatch, useSelector } from 'react-redux';
-import {getProducts} from "../../redux/productSlice"
+import {getProducts} from "../../redux/productSlice";
 
 
 
@@ -10,7 +10,6 @@ const Recommendation = () => {
 
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.data);
-    console.log(typeof products.data)
 
       useEffect(() => {
         // Function to fetch products when the component mounts

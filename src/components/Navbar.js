@@ -29,6 +29,7 @@ const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
+  const cardQuantity = useSelector((state) => state.card.cartTotalQuantity);
 
   //navmenu and usermenu email val
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -183,12 +184,11 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="./"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -200,7 +200,8 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <Avatar src={logo}>
+            </Avatar>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -217,7 +218,7 @@ const ResponsiveAppBar = () => {
 
 
           <IconButton aria-label="cart" sx={{ width: "80px", width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
-            <StyledBadge badgeContent={shoppingCardItems.length} color="primary">
+            <StyledBadge badgeContent={cardQuantity} color="primary">
               <ShoppingCartOutlinedIcon sx={{ color: "white", fontSize: "large", width: "30px", height: "40px" }} />
             </StyledBadge>
           </IconButton>
@@ -373,8 +374,8 @@ const ResponsiveAppBar = () => {
                     required
                     fullWidth
                     margin="normal"
-                    // error={emailErrorLogin}
-                    // helperText={emailErrorLogin ? "Invalid email address" : ""}
+                    error={emailErrorLogin}
+                    helperText={emailErrorLogin ? "Invalid email address" : ""}
                   />
                   <TextField
                     label="Passwort"

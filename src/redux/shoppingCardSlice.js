@@ -1,39 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
+  cartItems: sessionStorage.getItem("cartItems") ? JSON.parse(sessionStorage.getItem("cartItems")) : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
 };
 
-export const shoppingCardSlice = createSlice({
-  name: 'shoppingCard',
+export const cartSlice = createSlice({
+  name: "card",
   initialState,
   reducers: {
     addToShoppingCard(state, action) {
-      const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const itemIndex = state.cartItems.findIndex(item => item._id === action.payload._id);
       if (itemIndex >= 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
       } else {
         const tempProducts = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProducts);
       }
-      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+      sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-
     reduceShoppingCardItem(state, action) {
-      const currentCart = state.cartItems.find((item) => item.id === action.payload.id);
+      const currentCart = state.cartItems.find(item => item._id === action.payload._id);
       currentCart.cartQuantity -= 1;
-      let cartWithoutCurrent = state.cartItems.filter((item) => item.id !== action.payload.id);
+      let cartWithoutCurrent = state.cartItems.filter(item => item._id !== action.payload._id);
       if (currentCart.cartQuantity === 0) {
         state.cartItems = [...cartWithoutCurrent];
       } else {
         state.cartItems = [...cartWithoutCurrent, currentCart];
       }
-      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+      sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-
-    calculateShoppingCardTotals(state, action) {
+    calculateShoppingCardTotals(state) {
       let { total, quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
           const { price, cartQuantity } = cartItem;
@@ -53,15 +51,13 @@ export const shoppingCardSlice = createSlice({
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = total;
     },
-
-    clearShoppingCard(state, action) {
+    clearShoppingCard(state) {
       state.cartItems = [];
-      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+      sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-
     removeShoppingCardItem(state, action) {
-      state.cartItems = state.cartItems.filter((item) => item.id !== action.payload.id);
-      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+      state.cartItems = state.cartItems.filter(item => item._id !== action.payload._id);
+      sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });
@@ -72,6 +68,6 @@ export const {
   clearShoppingCard,
   removeShoppingCardItem,
   reduceShoppingCardItem,
-} = shoppingCardSlice.actions;
+} = cartSlice.actions;
 
-export default shoppingCardSlice.reducer;
+export default cartSlice.reducer;

@@ -1,12 +1,25 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Box, Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {addToShoppingCard,calculateShoppingCardTotals} from "../../redux/shoppingCardSlice";
+
 
 
 const url = process.env.REACT_APP_API_BASEURL;
+  // console.log(`${url}/${product.image}`)
+
+
 const MedicineCard = ({ product }) => {
+  const dispatch = useDispatch();
 
+  const card = useSelector((state) => state.card.cartItems);
 
-  console.log(`${url}/${product.image}`)
+  const handleAddToShoppingCard = (item)=> {
+    dispatch(addToShoppingCard(item))
+  }
+  useEffect(() => {
+    dispatch(calculateShoppingCardTotals());
+  }, [card, dispatch]);
 
   return (
     <Box sx={{
@@ -33,7 +46,7 @@ const MedicineCard = ({ product }) => {
           <Typography variant="body2" color="text.secondary">
             {product.description}
           </Typography>
-          <Button size="large">
+          <Button size="large" onClick={() => handleAddToShoppingCard(product)}>
             In den Warenkorb
           </Button>
         </CardContent>
