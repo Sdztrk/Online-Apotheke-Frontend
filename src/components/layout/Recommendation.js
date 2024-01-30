@@ -38,7 +38,7 @@ const Recommendation = () => {
         marginTop:"100px",
       }}
     >
-        <Typography gutterBottom variant="h4" component="div" sx={{ml:{lg:40}}} >
+        <Typography gutterBottom variant="h4" component="div" sx={{textAlign:"center"}} >
         Unsere Empehlungen Für Sie
         </Typography>
         {Array.isArray(products.data) &&

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import SliderCards from '../cards/SliderCards';
 import Slider from 'react-slick';
 import { Box, Typography } from '@mui/material';
@@ -52,7 +52,7 @@ const settings = {
 const SliderComponent = () => {
   return (
     <Box>
-      <Typography gutterBottom variant="h4" component="div" sx={{ml:40, mt:5}}>
+      <Typography gutterBottom variant="h4" component="div" sx={{mt:5, textAlign:"center"}}>
         Im Angebot
       </Typography>
       <Box sx={{  width: "100%", display: "flex", flexDirection: "row", justifyContent: "center" }}>

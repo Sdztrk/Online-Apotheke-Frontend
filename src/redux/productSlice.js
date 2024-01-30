@@ -28,7 +28,7 @@ export const getProducts = () => async (dispatch) => {
     dispatch(setProducts(payload));
   } catch (error) {
     console.error('Error fetching products:', error);
-    toast.error('Server error');
+    // toast.error('Server error');
   }
 };
 

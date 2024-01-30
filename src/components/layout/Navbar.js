@@ -11,24 +11,24 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, register, login } from '../redux/authSlice';
+import { logout, register, login, updatePayload } from '../../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import { StyledBadge, modalStyle, modalStyleLogin } from "../helpers/styles";
-import { pages } from "../helpers/constants/Constants"
-import logo from "../helpers/images/logo.jpg"
+import { StyledBadge, modalStyle, modalStyleLogin } from "../../helpers/styles";
+import { pages } from "../../helpers/constants/Constants"
+import logo from "../../helpers/images/logo.jpg"
 
 
 const ResponsiveAppBar = () => {
   //routing and dispatching and getting state
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  let currentUser = useSelector((state) => state.auth.currentUser);
+  console.log(currentUser)
   const cardQuantity = useSelector((state) => state.card.cartTotalQuantity);
 
   //navmenu and usermenu email val
@@ -112,16 +112,16 @@ const ResponsiveAppBar = () => {
     
     // Dispatch the login action
     await dispatch(login(loginFormData, navigate));
+    console.log(currentUser)
     // Closing login popup after register
     closeLoginModal()
   };
 
-
-
-  //Getting how many products in the shoppingcard
-  const shoppingCardItems = JSON.parse(sessionStorage.getItem('shoppingCard')) || [];
-
-
+    // useEffect(() => {
+    //   // const user = sessionStorage.getItem("name")
+    //   // currentUser = user
+    //   console.log("handleLoginSubmit changed")
+    // },[dispatch])
 
 
   return (
@@ -217,7 +217,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
 
-          <IconButton aria-label="cart" sx={{ width: "80px", width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
+          <IconButton aria-label="cart" sx={{ width: "80px"}} onClick={() => navigate("./ShoppingPage")}>
             <StyledBadge badgeContent={cardQuantity} color="primary">
               <ShoppingCartOutlinedIcon sx={{ color: "white", fontSize: "large", width: "30px", height: "40px" }} />
             </StyledBadge>

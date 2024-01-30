@@ -141,9 +141,6 @@ const EmptyBox = styled(Box)(({ theme }) => ({
 const url = process.env.REACT_APP_API_BASEURL;
 
 
-console.log("first")
-
-
 // *************************** REDUX ***************************
 const Checkout = () => {
   const dispatch = useDispatch();

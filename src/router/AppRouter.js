@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes,Route } from 'react-router-dom'
-import Navbar from "../components/Navbar"
+import Navbar from "../components/layout/Navbar"
 import LandingPage from '../pages/LandingPage'
 import Profile from "../pages/Profile"
 import Arzneimittel from '../pages/Medicine'
@@ -8,6 +8,8 @@ import Vitamine from '../pages/Vitamins'
 import Beauty from '../pages/Beauty'
 import TierApotheke from '../pages/AnimalPharmacy'
 import ShoppingPage from '../pages/ShoppinPage'
+import Footer from '../components/layout/Footer'
+import FAQPage from '../pages/FAQPage'
 
 
 const AppRouter = () => {
@@ -22,11 +24,12 @@ const AppRouter = () => {
         <Route path='/Beauty' element={<Beauty/>}/>
         <Route path='/TierApotheke' element={<TierApotheke/>}/>
         <Route path='/ShoppingPage' element={<ShoppingPage/>}/>
-
+        <Route path='/faq' element={<FAQPage/>}/>
         {/* <Route element={<PrivateRouter/>}>
           <Route path="/details/:id" element={<MovieDetail />} />
         </Route> */}
     </Routes>
+    <Footer/>
     </>
   )
 }
