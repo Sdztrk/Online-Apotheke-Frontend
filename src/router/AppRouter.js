@@ -10,6 +10,7 @@ import TierApotheke from '../pages/AnimalPharmacy'
 import ShoppingPage from '../pages/ShoppinPage'
 import Footer from '../components/layout/Footer'
 import FAQPage from '../pages/FAQPage'
+import DetailPage from '../pages/DetailPage'
 
 
 const AppRouter = () => {
@@ -25,6 +26,7 @@ const AppRouter = () => {
         <Route path='/TierApotheke' element={<TierApotheke/>}/>
         <Route path='/ShoppingPage' element={<ShoppingPage/>}/>
         <Route path='/faq' element={<FAQPage/>}/>
+        <Route path='/product/:id' element={<DetailPage/>}/>
         {/* <Route element={<PrivateRouter/>}>
           <Route path="/details/:id" element={<MovieDetail />} />
         </Route> */}

@@ -22,7 +22,9 @@ const LandingPage = () => {
             <ComplaintCards key={index} category={category} />
           ))}
         </Grid>
+        {/* This is the discount slider */}
         {breakpoint && <SliderComponent />}
+        {/* These are the products from our recommedations */}
         <Recommendation/>
       </Box>
     </>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
-import MedicineCard from "../components/cards/MedicineCard"
+import MedicineCard from "../components/cards/MedicineCard";
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../redux/productSlice';
 
@@ -43,9 +43,9 @@ const Medicine = () => {
       }}
     >
       {Array.isArray(products.data) &&
-        products.data.map((product, index) => (
+        products.data.map((product) => (
           product.type === 'Arzneimittel' && (
-            <MedicineCard key={index} product={product} />
+            <MedicineCard key={product._id} product={product} />
           )
         ))}
     </Box>
