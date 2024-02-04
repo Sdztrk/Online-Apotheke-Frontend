@@ -33,8 +33,6 @@ const AnimalPharmacy = () => {
 
   }, [dispatch]);
 
-
-  console.log(products)
   return (
     <Box
       sx={{

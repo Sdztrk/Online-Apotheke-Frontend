@@ -7,20 +7,19 @@ const url = process.env.REACT_APP_API_BASEURL;
 
 const ProductDetailPageCard = ({ product }) => {
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} sm={6}>
+    <Grid container spacing={3} sx={{backgroundColor:"aqua"}}>
+      <Grid item xs={12} sm={6} sx={{width:"50%", height:"50%", backgroundColor:"red"}}>
         {/* Display product image */}
         <Card>
           <CardMedia
             component="img"
             alt={product.name}
-            height="140"
             image={`${url}/${product.image}`}
             title={product.name}
           />
         </Card>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} sx={{width:"50%", height:"50%", backgroundColor:"blue"}}>
         {/* Display product details */}
         <Paper elevation={3} style={{ padding: '20px' }}>
           <Typography variant="h4" gutterBottom>

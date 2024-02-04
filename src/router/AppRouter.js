@@ -11,6 +11,8 @@ import ShoppingPage from '../pages/ShoppinPage'
 import Footer from '../components/layout/Footer'
 import FAQPage from '../pages/FAQPage'
 import DetailPage from '../pages/DetailPage'
+import PaymentSuccess from '../pages/PaymentSuccess'
+import PaymentFailed from '../pages/PaymentFailed'
 
 
 const AppRouter = () => {
@@ -25,6 +27,8 @@ const AppRouter = () => {
         <Route path='/Beauty' element={<Beauty/>}/>
         <Route path='/TierApotheke' element={<TierApotheke/>}/>
         <Route path='/ShoppingPage' element={<ShoppingPage/>}/>
+        <Route path='/PaymentSuccess' element={<PaymentSuccess/>}/>
+        <Route path='/PaymentFailed' element={<PaymentFailed/>}/>
         <Route path='/faq' element={<FAQPage/>}/>
         <Route path='/product/:id' element={<DetailPage/>}/>
         {/* <Route element={<PrivateRouter/>}>

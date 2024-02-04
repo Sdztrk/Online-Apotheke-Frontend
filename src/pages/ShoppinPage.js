@@ -29,6 +29,7 @@ import {
 } from "../redux/shoppingCardSlice";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js"
 
 // *************************** STYLES ***************************
 
@@ -139,16 +140,19 @@ const EmptyBox = styled(Box)(({ theme }) => ({
 }));
 //url for image
 const url = process.env.REACT_APP_API_BASEURL;
+// console.log(`${url}/api/v1/create-checkout-session`)
+// console.log(process.env.REACT_APP_PUBLISHABLE_KEY)
 
 
 // *************************** REDUX ***************************
 const Checkout = () => {
   const dispatch = useDispatch();
 
+  const currentUser = useSelector((state) => state.auth.currentUser)
   const cart = useSelector((state) => state.card.cartItems);
   const total = useSelector((state) => state.card.cartTotalAmount);
-  console.log(cart)
-  console.log("works")
+  // console.log(cart)
+  // console.log("works")
 
   //addToShoppingCard,
   // calculateShoppingCardTotals,
@@ -158,11 +162,11 @@ const Checkout = () => {
   const handleRemove = (produkt) => {
     dispatch(removeShoppingCardItem(produkt));
   };
-  
+
   const handleAdd = (produkt) => {
     dispatch(addToShoppingCard(produkt));
   };
-  
+
   const handleReduce = (produkt) => {
     dispatch(reduceShoppingCardItem(produkt));
   };
@@ -176,19 +180,63 @@ const Checkout = () => {
   const handleNavigate = () => {
     navigate("/");
   };
-  // *************************** TOASTIFY ***************************
 
-  const handleToast = () => {
-    toast.success(`Checkout completed successfully `, {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+  const handlePaymentIfLoggedin = () => {
+    currentUser ? navigate("/Payment") :
+      toast.error("Sie  müssen sich anmelden")
   };
+
+  //payment
+  const makePayment = async () => {
+    if (!currentUser) {
+      toast.error("Sie müssen sich anmelden");
+      return; // Stop further execution if currentUser is not truthy
+    }
+
+    const stripe = await loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
+
+    const body = {
+      products: cart,
+    };
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      const response = await fetch(`${url}/api/v1/create-checkout-session`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create checkout session');
+      }
+
+      const session = await response.json();
+
+      console.log("Checkout session created. Redirecting to checkout...");
+
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        console.error(result.error.message);
+      } else {
+        console.log("Payment successful. Clearing shopping cart.");
+        // If payment is successful, clear the shopping cart
+        dispatch(clearShoppingCard());
+      }
+    } catch (error) {
+      console.error("Error in makePayment:", error);
+    }
+  };
+
+
+
 
   return (
     <CheckContainer>
@@ -216,8 +264,8 @@ const Checkout = () => {
           </Grid>
           {(cart || []).map((item, index) => {
             return (
-              <>
-                <Grid key={index._id} item xs={5}>
+              <React.Fragment key={index}>
+                <Grid  item xs={5}>
                   <InnerBig>
                     <MainCard>
                       <Box
@@ -296,7 +344,7 @@ const Checkout = () => {
                     </InnerText>
                   </Inner>
                 </Grid>
-              </>
+                </React.Fragment>
             );
           })}
 
@@ -349,7 +397,7 @@ const Checkout = () => {
               variant="contained"
               color="success"
               style={{ display: { xs: "none", sm: "block" } }}
-              onClick={() => handleToast()}
+              onClick={() => makePayment()}
             >
               Zur Kasse
             </Button>
@@ -369,7 +417,7 @@ const Checkout = () => {
               color="success"
               style={{ display: { xs: "none", sm: "block" } }}
               fullWidth
-              onClick={() => handleToast()}
+              onClick={() => makePayment()}
             >
               Zur Kasse
             </Button>

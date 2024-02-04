@@ -1,31 +1,40 @@
 // MedicineCard.js
 
 import React, {useEffect} from "react";
-import { Box, Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Typography, Button, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../../redux/productSlice";
 import {addToShoppingCard,calculateShoppingCardTotals} from "../../redux/shoppingCardSlice";
 import { Link } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+
 
 const url = process.env.REACT_APP_API_BASEURL;
 
 const MedicineCard = ({ product }) => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card.cartItems);
-
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDetailsClick = (productId) => {
     dispatch(getProductById(productId));
   };
   
-  const handleAddToShoppingCard = (item)=> {
-    dispatch(addToShoppingCard(item))
-  }
+  const handleAddToShoppingCard = (item) => {
+    dispatch(addToShoppingCard(item));
+  };
+
   useEffect(() => {
     dispatch(calculateShoppingCardTotals());
   }, [card, dispatch]);
 
+
+
   return (
+    <Grid item sm={12} md={6}>
     <Box
       sx={{
         m: `50px`,
@@ -36,8 +45,9 @@ const MedicineCard = ({ product }) => {
     >
       <Card
         sx={{
-          width: `400px`,
-          display: "flex",
+          width: '500px',
+          display: 'flex',
+          flexDirection: isSmallScreen ? 'column' : 'row',
         }}
       >
         <CardMedia
@@ -66,6 +76,7 @@ const MedicineCard = ({ product }) => {
         </CardContent>
       </Card>
     </Box>
+    </Grid>
   );
 };
 

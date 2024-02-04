@@ -29,8 +29,8 @@ export const register = (userInfo, navigate) => async (dispatch) => {
         const res = await axios.post(`${url}/api/v1/auth/register/`, userInfo);
         if (!res.data) throw new Error('Something went wrong!');
         const payload = {
-            token: res.data.token,
-            currentUser: res.data.name,
+            token: res.data?.token,
+            currentUser: res.data?.name,
             email: res.data?.user?.email,
         };
         dispatch(auth(payload));
@@ -51,14 +51,14 @@ export const login = (userInfo, navigate) => async (dispatch) => {
       if (!res.data) throw new Error('Something went wrong!');
 
       const { token, name, email } = res.data;
+
+      // sessionStorage.setItem('id', res.data.id);
+      dispatch(auth({ token, currentUser: name, email }));
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('email', email);
-      // sessionStorage.setItem('id', res.data.id);
-      dispatch(auth({ token, currentUser: name, email }));
       
-      navigate('/'); 
-    //   console.log('User logged in successfully');
+       console.log('User logged in successfully');
       toast.success("User loggedin successfully");
     } catch (error) {
       console.error(error);

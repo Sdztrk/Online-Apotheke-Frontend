@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {  } from 'react';
 import { Container, Typography, Grid, Link, Box } from '@mui/material';
 
 const Footer = () => {
   const typographySx = { textTransform: 'capitalize', mb: 2 };
   const linkSx = { textDecoration: 'none', mb: 1 };
+
+
 
   return (
     <Box sx={{ bgcolor: 'primary.main', color: 'white',mt:60 }}>

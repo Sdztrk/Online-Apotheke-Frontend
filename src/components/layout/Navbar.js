@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, register, login, updatePayload } from '../../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +30,9 @@ const ResponsiveAppBar = () => {
   let currentUser = useSelector((state) => state.auth.currentUser);
   console.log(currentUser)
   const cardQuantity = useSelector((state) => state.card.cartTotalQuantity);
+
+  // const [user, setUser] = useState(currentUser=null)
+  // console.log(user)
 
   //navmenu and usermenu email val
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -109,20 +112,14 @@ const ResponsiveAppBar = () => {
       setEmailErrorLogin(true);
       return; // Do not proceed with form submission if email is invalid
     }
-    
+
     // Dispatch the login action
     await dispatch(login(loginFormData, navigate));
+    console.log("comes from handlesubmit")
     console.log(currentUser)
     // Closing login popup after register
     closeLoginModal()
   };
-
-    // useEffect(() => {
-    //   // const user = sessionStorage.getItem("name")
-    //   // currentUser = user
-    //   console.log("handleLoginSubmit changed")
-    // },[dispatch])
-
 
   return (
     <AppBar position="fixed" >
@@ -146,8 +143,6 @@ const ResponsiveAppBar = () => {
             <Avatar src={logo}>
             </Avatar>
           </Typography>
-
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -215,9 +210,7 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
-
-
-          <IconButton aria-label="cart" sx={{ width: "80px"}} onClick={() => navigate("./ShoppingPage")}>
+          <IconButton aria-label="cart" sx={{ width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
             <StyledBadge badgeContent={cardQuantity} color="primary">
               <ShoppingCartOutlinedIcon sx={{ color: "white", fontSize: "large", width: "30px", height: "40px" }} />
             </StyledBadge>

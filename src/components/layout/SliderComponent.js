@@ -24,19 +24,40 @@ const products = [
   { image: 'https://www.kindernetz.de/wissen/1653920856568%2Cwie-entstehen-berge-106~_v-16x9@2dM_-ad6791ade5eb8b5c935dd377130b903c4b5781d8.jpg', price: '$29.99', name: 'Product 2' },
   // Add more products as needed
 ];
-const CustomPrevArrow = (props) => (
-  <div {...props} style={{ ...props.style, left: '-70px', zIndex: 1 }}>
-    {/* You can customize the appearance of the left arrow here */}
+
+
+const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+  <div
+    {...props}
+    className={
+      "slick-prev slick-arrow" +
+      (currentSlide === 0 ? " slick-disabled" : "")
+    }
+    style={{ ...props.style, left: '-70px', zIndex: 1 }}
+    aria-hidden="true"
+    aria-disabled={currentSlide === 0 ? true : false}
+    type="button"
+  >
     <span style={{ color: 'blue', fontSize: '24px' }}>&#9665;</span>
   </div>
 );
 
-const CustomNextArrow = (props) => (
-  <div {...props} style={{ ...props.style, right: '-40px', zIndex: 1 }}>
-    {/* You can customize the appearance of the right arrow here */}
+const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
+  <div
+    {...props}
+    className={
+      "slick-next slick-arrow" +
+      (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+    }
+    style={{ ...props.style, right: '-30px', zIndex: 1 }}
+    aria-hidden="true"
+    aria-disabled={currentSlide === slideCount - 1 ? true : false}
+    type="button"
+  >
     <span style={{ color: 'blue', fontSize: '24px' }}>&#9655;</span>
   </div>
 );
+
 
 const settings = {
   infinite: true,
@@ -45,8 +66,8 @@ const settings = {
   slidesToScroll: 3,
   autoplay: true,
   autoplaySpeed: 3000,
-  prevArrow: <CustomPrevArrow />,
-  nextArrow: <CustomNextArrow />,
+  prevArrow: <SlickArrowLeft />,
+  nextArrow: <SlickArrowRight />,
 };
 
 const SliderComponent = () => {

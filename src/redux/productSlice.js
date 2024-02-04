@@ -39,7 +39,7 @@ export const getProducts = () => async (dispatch) => {
   try {
     const res = await axios.get(`${url}/api/v1/product`);
     const payload = {
-      data: res.data,
+      data: res?.data,
     };
     dispatch(setProducts(payload));
   } catch (error) {
@@ -53,7 +53,7 @@ export const getProductById = (productId) => async (dispatch) => {
   try {
     const res = await axios.get(`${url}/api/v1/product/${productId}`);
     const payload = {
-      product: res.data.data,
+      product: res.data?.data,
     };
     // Store the selected product in session storage
     sessionStorage.setItem("selectedProduct", JSON.stringify(res.data.data))

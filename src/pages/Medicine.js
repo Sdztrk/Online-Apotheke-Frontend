@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import MedicineCard from "../components/cards/MedicineCard";
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../redux/productSlice';
+import { VerticalAlignBottom } from '@mui/icons-material';
 
 
 
@@ -12,7 +13,8 @@ const Medicine = () => {
 
   const products = useSelector((state) => state.product.data);
   const dispatch = useDispatch();
-
+  const currentUser = useSelector((state) => state.auth.currentUser)
+  console.log(currentUser)
 
   useEffect(() => {
     // Function to fetch products when the component mounts
@@ -34,7 +36,7 @@ const Medicine = () => {
   }, [dispatch]);
 
 
-  console.log(products)
+  // console.log(products)
   return (
     <Box
       sx={{

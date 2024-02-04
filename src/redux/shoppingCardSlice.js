@@ -21,15 +21,18 @@ export const cartSlice = createSlice({
       sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     reduceShoppingCardItem(state, action) {
-      const currentCart = state.cartItems.find(item => item._id === action.payload._id);
-      currentCart.cartQuantity -= 1;
-      let cartWithoutCurrent = state.cartItems.filter(item => item._id !== action.payload._id);
-      if (currentCart.cartQuantity === 0) {
-        state.cartItems = [...cartWithoutCurrent];
-      } else {
-        state.cartItems = [...cartWithoutCurrent, currentCart];
-      }
-      sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      const updatedCartItems = state.cartItems
+        .map(item => {
+          if (item._id === action.payload._id) {
+            const updatedItem = { ...item, cartQuantity: item.cartQuantity - 1 };
+            return updatedItem;
+          }
+          return item;
+        })
+        .filter(item => item.cartQuantity > 0); // Remove items with cartQuantity 0
+    
+      state.cartItems = updatedCartItems;
+      sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     },
     calculateShoppingCardTotals(state) {
       let { total, quantity } = state.cartItems.reduce(
