@@ -35,8 +35,7 @@ export const register = (userInfo, navigate) => async (dispatch) => {
         };
         dispatch(auth(payload));
         navigate('/');
-        toast.success("User registered successfully");
-        // console.log("User registered successfully")
+        toast.success("Erfolgreich registriert");
     } catch (error) {
         console.error(error);
         toast.error(error.message);
@@ -58,8 +57,7 @@ export const login = (userInfo, navigate) => async (dispatch) => {
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('email', email);
       
-       console.log('User logged in successfully');
-      toast.success("User loggedin successfully");
+      toast.success("Erfolgreich angemeldet");
     } catch (error) {
       console.error(error);
       toast.error(error.message);
@@ -74,7 +72,7 @@ export const login = (userInfo, navigate) => async (dispatch) => {
         dispatch(auth({ token: null, currentUser: false, email: '' }));
         sessionStorage.clear();
         navigate('/');
-        toast.success("User successfully Logged out!");
+        toast.success("Erfolgreich abgemeldet");
         // console.log('User successfully logged out!');
       }
     } catch (error) {

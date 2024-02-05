@@ -1,13 +1,14 @@
 // MedicineCard.js
 
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Box, Card, CardContent, CardMedia, Typography, Button, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../../redux/productSlice";
-import {addToShoppingCard,calculateShoppingCardTotals} from "../../redux/shoppingCardSlice";
+import { addToShoppingCard, calculateShoppingCardTotals } from "../../redux/shoppingCardSlice";
 import { Link } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 
 
 
@@ -17,12 +18,11 @@ const MedicineCard = ({ product }) => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card.cartItems);
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDetailsClick = (productId) => {
     dispatch(getProductById(productId));
   };
-  
+
   const handleAddToShoppingCard = (item) => {
     dispatch(addToShoppingCard(item));
   };
@@ -34,49 +34,55 @@ const MedicineCard = ({ product }) => {
 
 
   return (
-    <Grid item sm={12} md={6}>
-    <Box
-      sx={{
-        m: `50px`,
-        display: `flex`,
-        flexDirection: `row`,
-        justifyContent: `center`,
-      }}
-    >
+    <Grid item sm={12} md={6} lg={4} sx={{ marginY: 2 }}>
       <Card
         sx={{
-          width: '500px',
           display: 'flex',
-          flexDirection: isSmallScreen ? 'column' : 'row',
+          flexDirection: { xs: "column" },
+          maxWidth: "300px",
+          '&:hover': {
+            boxShadow: '0px 0px 10px 3px rgba(25, 118, 210, 1)', // Adjust the color and values as needed
+        },
         }}
       >
-        <CardMedia
-          component="img"
-          alt={product.name}
-          sx={{ objectFit: "cover", height: "180px", width: "33%", display: "flex", justifyContent: "center", alignItems: "center" }}
-          image={`${url}/${product.image}`}
-        />
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            {product.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {product.description}
-          </Typography>
-          <Button size="large" component={Link} to={`/product/${product._id}`} onClick={() => handleDetailsClick(product._id)}>
-            Details ansehen
-          </Button>
-          <Button size="large" onClick={() => handleAddToShoppingCard(product)}>
-            In den Warenkorb
-          </Button>
-          {/* ... (other buttons or actions) */}
-        </CardContent>
-        <CardContent sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Typography> €{product.price} </Typography>
-        </CardContent>
+        <Link
+          to={`/product/${product._id}`}
+          onClick={() => handleDetailsClick(product._id)}
+          style={{ textDecoration: "none", textAlign: "center" }}
+        >
+          <CardMedia
+            component="img"
+            alt={product.name}
+            sx={{
+              objectFit: "contain",
+              maxHeight: "200px",
+              transition: "transform 0.3s", // Add transition for smooth scaling
+              '&:hover': {
+                transform: "scale(1.1)", // Scale to 1.1 on hover
+              },
+            }}
+            image={`${url}/${product.image}`}
+          />
+          <CardContent sx={{ textAlign: "center" }}>
+            <Typography variant="h6" gutterBottom>
+              {product.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {product.packageSize}
+            </Typography>
+            {/* ... (other buttons or actions) */}
+          </CardContent>
+          <CardContent sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <Typography> €{product.price} </Typography>
+          </CardContent>
+        </Link>
+        <Button size="large" onClick={() => handleAddToShoppingCard(product)}>
+          <AddShoppingCartIcon />
+        </Button>
       </Card>
-    </Box>
     </Grid>
+
+
   );
 };
 

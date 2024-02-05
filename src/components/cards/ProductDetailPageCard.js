@@ -8,14 +8,15 @@ const url = process.env.REACT_APP_API_BASEURL;
 const ProductDetailPageCard = ({ product }) => {
   return (
     <Grid container spacing={3} sx={{backgroundColor:"aqua"}}>
-      <Grid item xs={12} sm={6} sx={{width:"50%", height:"50%", backgroundColor:"red"}}>
+      <Grid item xs={12} sm={6} sx={{width:"50%", height:"50%", backgroundColor:"red", display:"flex", flexDirection:"row", justifyContent:"center"}}>
         {/* Display product image */}
-        <Card>
+        <Card >
           <CardMedia
             component="img"
             alt={product.name}
             image={`${url}/${product.image}`}
             title={product.name}
+            sx={{objectFit:"cover"}}
           />
         </Card>
       </Grid>

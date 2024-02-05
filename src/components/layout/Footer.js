@@ -53,6 +53,18 @@ const Footer = () => {
             </Link>
           </Grid>
         </Grid>
+        <Grid item xs={12} sm={6} sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography variant="h6" sx={typographySx}>
+              Unsere Apotheke
+            </Typography>
+            <iframe
+              width="100%" // Adjust width as needed
+              height="315"
+              src="https://www.youtube.com/embed/hddXvceVv6E"
+              title="Apotheke Video"
+              allowFullScreen
+            />
+          </Grid>
       </Container>
     </Box>
   );

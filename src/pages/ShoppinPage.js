@@ -181,10 +181,6 @@ const Checkout = () => {
     navigate("/");
   };
 
-  const handlePaymentIfLoggedin = () => {
-    currentUser ? navigate("/Payment") :
-      toast.error("Sie  müssen sich anmelden")
-  };
 
   //payment
   const makePayment = async () => {
@@ -209,6 +205,7 @@ const Checkout = () => {
         headers: headers,
         body: JSON.stringify(body),
       });
+      console.log(response)
 
       if (!response.ok) {
         throw new Error('Failed to create checkout session');
@@ -217,7 +214,6 @@ const Checkout = () => {
       const session = await response.json();
 
       console.log("Checkout session created. Redirecting to checkout...");
-
 
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
@@ -265,7 +261,7 @@ const Checkout = () => {
           {(cart || []).map((item, index) => {
             return (
               <React.Fragment key={index}>
-                <Grid  item xs={5}>
+                <Grid item xs={5}>
                   <InnerBig>
                     <MainCard>
                       <Box
@@ -313,7 +309,7 @@ const Checkout = () => {
                 </Grid>
                 <Grid item xs={2}>
                   <Inner>
-                    <InnerText variant="h5">€{item.price}</InnerText>
+                    <InnerText variant="h5">€ {Number(item.price).toFixed(2)}</InnerText>
                   </Inner>
                 </Grid>
                 <Grid item xs={3}>
@@ -340,11 +336,11 @@ const Checkout = () => {
                 <Grid item xs={2}>
                   <Inner>
                     <InnerText variant="h5">
-                      €{item.cartQuantity * item.price}
+                      € {Number(item.cartQuantity * item.price).toFixed(2)}
                     </InnerText>
                   </Inner>
                 </Grid>
-                </React.Fragment>
+              </React.Fragment>
             );
           })}
 
@@ -365,7 +361,7 @@ const Checkout = () => {
           </Grid>
           <Grid item xs={2}>
             <Subtotal>
-              <ItemTitle variant="h5">€{total}</ItemTitle>
+              <ItemTitle variant="h5">€ {Number(total).toFixed(2)}</ItemTitle>
             </Subtotal>
           </Grid>
           <Grid

@@ -1,36 +1,27 @@
-import React, { useEffect } from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, Grid, IconButton } from '@mui/material';
 import MedicineCard from '../cards/MedicineCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from "../../redux/productSlice";
-
+import { KeyboardArrowDown } from '@mui/icons-material';
 
 
 const Recommendation = () => {
-
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.data);
-   console.log(products?.data)
+  const [visibleProducts, setVisibleProducts] = useState(6);
+
+  console.log(products?.data);
 
   useEffect(() => {
     // Function to fetch products when the component mounts
-    const handleProduct = async () => {
-      try {
-        await dispatch(getProducts());
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    handleProduct(); // Call the function
-
-    // Optionally, you can provide dependencies to useEffect if needed
-    // useEffect(() => {
-    //   handleProduct();
-    // }, [/*dependencies*/]);
-
+    dispatch(getProducts());
   }, [dispatch]);
 
+  const handleLoadMore = () => {
+    // Increment the visibleProducts by 6 when the "Load More" button is clicked
+    setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 6);
+  };
 
   return (
     <Box
@@ -38,22 +29,32 @@ const Recommendation = () => {
         width: '60%',
         paddingTop: '100px',
         display: 'flex',
-        flexDirection: 'column',  // Optional: If you want to center vertically in a column
+        flexDirection: {xs: 'column'},
         alignItems: 'center',
-        margin: 'auto',  // Optional: To center horizontally
+        margin: 'auto',
       }}
     >
       <Typography gutterBottom variant="h4" component="div" sx={{ textAlign: "center" }} >
-        Unsere Empehlungen Für Sie
+        Unsere Empfehlungen Für Sie
       </Typography>
-      <Grid container spacing={{ xs: 0, md: 0 }}  >
+      <Grid container spacing={{ xs: 0, md: 4 }}  >
         {Array.isArray(products?.data) &&
-          products?.data.map((product, index) => (
+          products?.data.slice(0, visibleProducts).map((product, index) => (
             <MedicineCard key={index} product={product} />
           ))}
       </Grid>
+      {visibleProducts < (products?.data?.length || 0) && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: 2 }}>
+          <Typography variant="h5" sx={{ textAlign: 'center', mb: 1, color:"primary" }}>
+            Weite Produkte Laden
+          </Typography>
+          <IconButton onClick={handleLoadMore} color="primary" >
+            <KeyboardArrowDown />
+          </IconButton>
+        </Box>
+      )}
     </Box>
-  )
-}
+  );
+};
 
 export default Recommendation;

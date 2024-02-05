@@ -80,6 +80,7 @@ const ResponsiveAppBar = () => {
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
+  //register submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     //email validation
@@ -104,6 +105,12 @@ const ResponsiveAppBar = () => {
   const handleLoginChange = (e) => {
     setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value });
   };
+  // refresh navbar
+    const handleRefresh = () => {
+      window.location.reload(true);
+    };
+  
+  //login submit function
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     //email validation
@@ -119,6 +126,7 @@ const ResponsiveAppBar = () => {
     console.log(currentUser)
     // Closing login popup after register
     closeLoginModal()
+    handleRefresh()
   };
 
   return (
@@ -219,7 +227,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Semy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu

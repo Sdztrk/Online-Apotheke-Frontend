@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from "react-toastify";
+
 
 const initialState = {
   cartItems: sessionStorage.getItem("cartItems") ? JSON.parse(sessionStorage.getItem("cartItems")) : [],
@@ -19,6 +21,8 @@ export const cartSlice = createSlice({
         state.cartItems.push(tempProducts);
       }
       sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      toast.success("zur Karte hinzugefügt");
+
     },
     reduceShoppingCardItem(state, action) {
       const updatedCartItems = state.cartItems
@@ -33,6 +37,8 @@ export const cartSlice = createSlice({
     
       state.cartItems = updatedCartItems;
       sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+      toast.success("von der Karte entfernt");
+
     },
     calculateShoppingCardTotals(state) {
       let { total, quantity } = state.cartItems.reduce(
@@ -57,10 +63,14 @@ export const cartSlice = createSlice({
     clearShoppingCard(state) {
       state.cartItems = [];
       sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      toast.success("alle Produkte entfernt");
+
     },
     removeShoppingCardItem(state, action) {
       state.cartItems = state.cartItems.filter(item => item._id !== action.payload._id);
       sessionStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      toast.success("Produkt entfernt");
+
     },
   },
 });
