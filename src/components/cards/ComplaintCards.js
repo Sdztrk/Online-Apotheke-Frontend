@@ -14,12 +14,11 @@ const ComplaintCards = ({ category }) => {
       <Link style={{ textDecoration: "none" }} to={category.href}>
         <Card
           sx={{
+            transition: "transform 0.3s",
             '&:hover': {
               transform: 'scale(1.02)',
-              transition: 'transform 0.3s',
               boxShadow: '0px 0px 10px 3px rgba(25, 118, 210, 1)',
             },
-            transition: 'transform 0.3s',
           }}
         >
           <CardActionArea>

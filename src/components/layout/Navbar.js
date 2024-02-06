@@ -21,7 +21,7 @@ import TextField from '@mui/material/TextField';
 import { StyledBadge, modalStyle, modalStyleLogin } from "../../helpers/styles";
 import { pages } from "../../helpers/constants/Constants"
 import logo from "../../helpers/images/logo.jpg"
-
+import { Link } from 'react-router-dom';
 
 const ResponsiveAppBar = () => {
   //routing and dispatching and getting state
@@ -30,9 +30,6 @@ const ResponsiveAppBar = () => {
   let currentUser = useSelector((state) => state.auth.currentUser);
   console.log(currentUser)
   const cardQuantity = useSelector((state) => state.card.cartTotalQuantity);
-
-  // const [user, setUser] = useState(currentUser=null)
-  // console.log(user)
 
   //navmenu and usermenu email val
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -106,10 +103,10 @@ const ResponsiveAppBar = () => {
     setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value });
   };
   // refresh navbar
-    const handleRefresh = () => {
-      window.location.reload(true);
-    };
-  
+  const handleRefresh = () => {
+    window.location.reload(true);
+  };
+
   //login submit function
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -148,8 +145,9 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            <Avatar src={logo}>
-            </Avatar>
+            <Link to="/">
+              <Avatar src={logo} />
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -203,8 +201,9 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            <Avatar src={logo}>
-            </Avatar>
+            <Link to="/">
+              <Avatar src={logo} />
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -227,7 +226,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Semy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={currentUser} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu

@@ -46,7 +46,7 @@ const Recommendation = () => {
       {visibleProducts < (products?.data?.length || 0) && (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: 2 }}>
           <Typography variant="h5" sx={{ textAlign: 'center', mb: 1, color:"primary" }}>
-            Weite Produkte Laden
+            Weitere Produkte Laden
           </Typography>
           <IconButton onClick={handleLoadMore} color="primary" >
             <KeyboardArrowDown />

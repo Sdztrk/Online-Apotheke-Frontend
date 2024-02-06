@@ -6,7 +6,7 @@ const FAQAccordion = ({ faqs }) => {
   return (
     <>
       {faqs.map((faq, index) => (
-        <Accordion sx={{mx:20}} key={index}>
+        <Accordion sx={{mx:{sx:0, sm:0, md:20}}} key={index}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
             <Typography variant="h6">{faq.question}</Typography>
           </AccordionSummary>

@@ -35,7 +35,7 @@ import { loadStripe } from "@stripe/stripe-js"
 
 const CheckContainer = styled(Container)(({ theme }) => ({
   marginBottom: "20rem",
-  marginTop: "5rem",
+  paddingTop:"7rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -59,7 +59,7 @@ const Title = styled(Paper)(() => ({
 
 const UpTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
-    fontSize: "1rem",
+    fontSize: "0.8rem",
   },
 }));
 
@@ -76,7 +76,8 @@ const Inner = styled(Paper)(({ theme }) => ({
 
 const InnerText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
-    fontSize: "1rem",
+    fontSize: "0.8rem",
+    display:"flex"
   },
 }));
 
@@ -86,7 +87,7 @@ const QuantNum = styled(Typography)(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   [theme.breakpoints.down("sm")]: {
-    fontSize: "1rem",
+    fontSize: "0.8rem",
   },
 }));
 
@@ -121,7 +122,7 @@ const Subtotal = styled(Paper)(({ theme }) => ({
 
 const ItemTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
-    fontSize: "1rem",
+    fontSize: "0.8rem",
     fontWeight: "bold",
   },
 }));
@@ -184,21 +185,13 @@ const Checkout = () => {
 
   //payment
   const makePayment = async () => {
-    if (!currentUser) {
-      toast.error("Sie müssen sich anmelden");
-      return; // Stop further execution if currentUser is not truthy
-    }
-
     const stripe = await loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
-
     const body = {
       products: cart,
     };
-
     const headers = {
       'Content-Type': 'application/json',
     };
-
     try {
       const response = await fetch(`${url}/api/v1/create-checkout-session`, {
         method: "POST",
@@ -206,19 +199,14 @@ const Checkout = () => {
         body: JSON.stringify(body),
       });
       console.log(response)
-
       if (!response.ok) {
         throw new Error('Failed to create checkout session');
       }
-
       const session = await response.json();
-
       console.log("Checkout session created. Redirecting to checkout...");
-
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
       });
-
       if (result.error) {
         console.error(result.error.message);
       } else {
@@ -232,6 +220,15 @@ const Checkout = () => {
   };
 
 
+  const handlePaymentClick = () => {
+    if (!currentUser) {
+      // If currentUser is false, trigger notification
+      toast.error("Sie müssen sich anmelden");
+    } else {
+      // If currentUser is true, make payment
+      makePayment();
+    }
+  };
 
 
   return (
@@ -393,7 +390,7 @@ const Checkout = () => {
               variant="contained"
               color="success"
               style={{ display: { xs: "none", sm: "block" } }}
-              onClick={() => makePayment()}
+              onClick={() => handlePaymentClick()}
             >
               Zur Kasse
             </Button>
@@ -413,7 +410,7 @@ const Checkout = () => {
               color="success"
               style={{ display: { xs: "none", sm: "block" } }}
               fullWidth
-              onClick={() => makePayment()}
+              onClick={() => handlePaymentClick()}
             >
               Zur Kasse
             </Button>

@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@mui/material';
 import SliderComponent from '../components/layout/SliderComponent';
 import Recommendation from '../components/layout/Recommendation';
+import SpeedDialTooltipOpen from '../components/cards/SpeedDialTooltipOpen';
 
 const LandingPage = () => {
   // Use a breakpoint value to determine when to render the SliderComponent
@@ -13,8 +14,8 @@ const LandingPage = () => {
 
   return (
     <>
-      <Box sx={{mt:15}}>
-        <Typography gutterBottom variant="h4" component="div" sx={{textAlign:"center"}} >
+      <Box sx={{ mt: 15 }}>
+        <Typography gutterBottom variant="h4" component="div" sx={{ textAlign: "center" }} >
           Wo drückt's?
         </Typography>
         <Grid container sx={{ px: { xs: 0, md: 20, lg: 30, xl: 40 } }} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -25,7 +26,14 @@ const LandingPage = () => {
         {/* This is the discount slider */}
         {breakpoint && <SliderComponent />}
         {/* These are the products from our recommedations */}
-        <Recommendation/>
+        <Recommendation />
+        <Box sx={{
+          position: 'fixed',
+          bottom: '1%', // Adjust as needed
+          right: '1%',
+        }}>
+          <SpeedDialTooltipOpen />
+        </Box>
       </Box>
     </>
   );
