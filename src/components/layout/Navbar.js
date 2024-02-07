@@ -179,9 +179,11 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <Button href={`/${page}`} key={page} onClick={handleCloseNavMenu}>
-                  {page}
-                </Button>
+                <Link to={`/${page}`} key={page} onClick={handleCloseNavMenu} style={{textDecoration:"none", color:"white"}} >
+                  <Button>
+                    {page}
+                  </Button>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -207,14 +209,15 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+              <Link
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-                href={`/${page}`}
+                to={`/${page}`}
+                style={{textDecoration:"none", color:"white", marginRight:8}}
               >
                 {page}
-              </Button>
+              </Link>
             ))}
           </Box>
           <IconButton aria-label="cart" sx={{ width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
