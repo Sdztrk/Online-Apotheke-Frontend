@@ -7,13 +7,19 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import Person2Icon from '@mui/icons-material/Person2';
+import { useSelector } from 'react-redux';
 
-const actions = [
-  { icon: <Person2Icon />, name: 'Profile', route: '/Profile' },
-  { icon: <ShoppingCartCheckoutIcon />, name: 'Korb', route: '/ShoppingPage' },
-];
 
-export default function SpeedDialTooltipOpen() {
+
+const SpeedDialTooltipOpen = () => {
+
+
+  const actions = [
+    { icon: <Person2Icon />, name: 'Profile', route: '/Profile' },
+    { icon: <ShoppingCartCheckoutIcon />, name: 'Korb', route: '/ShoppingPage' },
+  ];
+
+
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate(); // Initialize useNavigate hook
 
@@ -49,3 +55,4 @@ export default function SpeedDialTooltipOpen() {
     </Box>
   );
 }
+export default SpeedDialTooltipOpen;

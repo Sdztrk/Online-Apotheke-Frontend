@@ -249,6 +249,17 @@ const ResponsiveAppBar = () => {
                 <Box>
                   <MenuItem
                     component="a"
+                    href='/Admin'
+                    sx={{
+                      width: '100%',
+                      textAlign: 'left',
+                      color: 'text.primary',
+                    }}
+                  >
+                    Admin
+                  </MenuItem>
+                  <MenuItem
+                    component="a"
                     href='/Profile'
                     sx={{
                       width: '100%',

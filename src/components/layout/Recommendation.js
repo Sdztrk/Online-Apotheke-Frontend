@@ -12,6 +12,7 @@ const Recommendation = () => {
   const [visibleProducts, setVisibleProducts] = useState(6);
 
   console.log(products?.data);
+  const cheapProducts = products?.data?.filter((product) => product.price < 20)
 
   useEffect(() => {
     // Function to fetch products when the component mounts
@@ -38,12 +39,12 @@ const Recommendation = () => {
         Unsere Empfehlungen Für Sie
       </Typography>
       <Grid container spacing={{ xs: 0, md: 4 }}  >
-        {Array.isArray(products?.data) &&
-          products?.data.slice(0, visibleProducts).map((product, index) => (
+        {Array.isArray(cheapProducts) &&
+          cheapProducts.slice(0, visibleProducts).map((product, index) => (
             <MedicineCard key={index} product={product} />
           ))}
       </Grid>
-      {visibleProducts < (products?.data?.length || 0) && (
+      {visibleProducts < (cheapProducts?.length || 0) && (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: 2 }}>
           <Typography variant="h5" sx={{ textAlign: 'center', mb: 1, color:"primary" }}>
             Weitere Produkte Laden

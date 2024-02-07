@@ -57,7 +57,7 @@ const MedicineCard = ({ product }) => {
             sx={{
               objectFit: "contain",
               maxHeight: "200px",
-              transition: "transform 0.3s", // Add transition for smooth scaling
+              transition: "transform 0.5s", // Add transition for smooth scaling
 
             }}
             image={`${url}/${product.image}`}

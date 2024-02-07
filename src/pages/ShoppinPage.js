@@ -390,7 +390,7 @@ const Checkout = () => {
               variant="contained"
               color="success"
               style={{ display: { xs: "none", sm: "block" } }}
-              onClick={() => handlePaymentClick()}
+              onClick={() => makePayment()}
             >
               Zur Kasse
             </Button>
@@ -410,7 +410,7 @@ const Checkout = () => {
               color="success"
               style={{ display: { xs: "none", sm: "block" } }}
               fullWidth
-              onClick={() => handlePaymentClick()}
+              onClick={() => makePayment()}
             >
               Zur Kasse
             </Button>

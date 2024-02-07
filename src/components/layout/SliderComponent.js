@@ -36,14 +36,14 @@ const SliderComponent = () => {
   }
 
   return (
-    <Box sx={{height:"500px", zIndex:10000}}>
+    <Box>
       <Typography gutterBottom variant="h4" component="div" sx={{ mt: 5, textAlign: "center" }}>
         Im Angebot
       </Typography>
-      <Box sx={{ width: "100%", height: "400px", display: "flex", flexDirection: "row", justifyContent: "center" }}>
+      <Box sx={{ width: "100%",  display: "flex", flexDirection: "row", justifyContent: "center" }}>
         <Box sx={{ width: "63%" }}>
           <Slider {...settings}>
-            {products?.data.map((product, index) => (
+            {products?.data?.filter((product) => product.discount === true).map((product, index) => (
               <SliderCards key={index} product={product} />
             ))}
           </Slider>

@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@mui/material';
 import SliderComponent from '../components/layout/SliderComponent';
 import Recommendation from '../components/layout/Recommendation';
-import SpeedDialTooltipOpen from '../components/cards/SpeedDialTooltipOpen';
+import SpeedDialTooltipOpen from '../components/layout/SpeedDialTooltipOpen';
 
 const LandingPage = () => {
   // Use a breakpoint value to determine when to render the SliderComponent
