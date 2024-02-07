@@ -179,10 +179,8 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <Link to={`/${page}`} key={page} onClick={handleCloseNavMenu} style={{textDecoration:"none", color:"white"}} >
-                  <Button>
+                <Link to={`/${page}`} key={page} onClick={handleCloseNavMenu} style={{textDecoration:"none", color:"#1976D2", marginRight:8}} >
                     {page}
-                  </Button>
                 </Link>
               ))}
             </Menu>
@@ -220,11 +218,11 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
-          <IconButton aria-label="cart" sx={{ width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
+          <Link aria-label="cart" style={{ width: "60px" }} to={"./ShoppingPage"}>
             <StyledBadge badgeContent={cardQuantity} color="primary">
               <ShoppingCartOutlinedIcon sx={{ color: "white", fontSize: "large", width: "30px", height: "40px" }} />
             </StyledBadge>
-          </IconButton>
+          </Link>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -250,9 +248,9 @@ const ResponsiveAppBar = () => {
             >
               {currentUser ? (
                 <Box>
-                  <MenuItem
+                  <Link
                     component="a"
-                    href='/Admin'
+                    to={'/Admin'}
                     sx={{
                       width: '100%',
                       textAlign: 'left',
@@ -260,10 +258,10 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Admin
-                  </MenuItem>
-                  <MenuItem
+                  </Link>
+                  <Link
                     component="a"
-                    href='/Profile'
+                    to={'/Profile'}
                     sx={{
                       width: '100%',
                       textAlign: 'left',
@@ -271,8 +269,8 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Profile
-                  </MenuItem>
-                  <MenuItem
+                  </Link>
+                  <Link
                     component="a"
                     onClick={handleLogout}
                     sx={{
@@ -282,7 +280,7 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Logout
-                  </MenuItem>
+                  </Link>
                 </Box>
               ) : (
                 <Box>
