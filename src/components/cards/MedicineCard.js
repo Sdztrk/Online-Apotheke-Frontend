@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../../redux/productSlice";
 import { addToShoppingCard, calculateShoppingCardTotals } from "../../redux/shoppingCardSlice";
 import { Link } from "react-router-dom";
-import { useTheme } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
@@ -15,10 +14,9 @@ const url = process.env.REACT_APP_API_BASEURL;
 const MedicineCard = ({ product }) => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card.cartItems);
-  const theme = useTheme();
 
-  const handleDetailsClick = (productId) => {
-    dispatch(getProductById(productId));
+  const handleDetailsClick = (id) => {
+    dispatch(getProductById(id));
   };
 
   const handleAddToShoppingCard = (item) => {

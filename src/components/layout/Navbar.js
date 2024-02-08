@@ -174,7 +174,7 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <Link to={`/${page}`} key={page} onClick={handleCloseNavMenu} style={{textDecoration:"none", color:"blue", marginRight:8}} >
+                <Link to={`/${page}`} key={page} onClick={handleCloseNavMenu} style={{textDecoration:"none", color:"#1976D2", marginRight:8}} >
                   {page}
                 </Link>
               ))}
@@ -205,7 +205,7 @@ const ResponsiveAppBar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 to={`/${page}`}
-                style={{textDecoration:"none", color:"white", marginRight:8}}
+                style={{textDecoration:"none", color:"white", marginRight:24}}
               >
                 {page}
               </Link>
@@ -240,14 +240,22 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {currentUser ? (
-                <Box>
+                <Box sx={{width:"80px", height:"90px", display:"flex",flexDirection:"column", justifyContent:"center"}}>
                   <Link
                     component="a"
                     to={'/Admin'}
-                    sx={{
+                    style={{
                       width: '100%',
                       textAlign: 'left',
                       color: 'text.primary',
+                      textDecoration:"none",
+                      textAlign:"center",
+                      paddingBottom:"5px",
+                      fontSize:"1.2rem",
+                      color:"black",
+                      '&:hover': {
+                        backgroundColor: 'blue',
+                      }
                     }}
                   >
                     Admin
@@ -255,10 +263,15 @@ const ResponsiveAppBar = () => {
                   <Link
                     component="a"
                     to={'/Profile'}
-                    sx={{
+                    style={{
                       width: '100%',
                       textAlign: 'left',
                       color: 'text.primary',
+                      textDecoration:"none",
+                      textAlign:"center",
+                      paddingBottom:"5px",
+                      fontSize:"1.2rem",
+                      color:"black"
                     }}
                   >
                     Profile
@@ -266,10 +279,15 @@ const ResponsiveAppBar = () => {
                   <Link
                     component="a"
                     onClick={handleLogout}
-                    sx={{
+                    style={{
                       width: '100%',
                       textAlign: 'left',
                       color: 'text.primary',
+                      textDecoration:"none",
+                      textAlign:"center",
+                      paddingBottom:"5px",
+                      fontSize:"1.2rem",
+                      color:"black"
                     }}
                   >
                     Logout

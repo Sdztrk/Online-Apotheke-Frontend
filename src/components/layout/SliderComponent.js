@@ -8,9 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from "../../redux/productSlice";
 import "./slick.css"
 
-
-
-
 const settings = {
   infinite: true,
   speed: 1000,

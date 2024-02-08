@@ -1,32 +1,65 @@
 // Import necessary dependencies and components
-import React from 'react';
-import { Paper, Typography, Card, CardMedia, Box, Button } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Paper, Typography, CardMedia, Box, Button } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { addToShoppingCard, calculateShoppingCardTotals } from "../../redux/shoppingCardSlice";
+import { useDispatch, useSelector } from "react-redux";
 
+// Base URL for the API
 const url = process.env.REACT_APP_API_BASEURL;
 
+// Component for displaying product details on the product detail page
 const ProductDetailPageCard = ({ product }) => {
-
+  // Get current date
   const currentDate = new Date();
+  // Format options for date
   const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  // Format date using the options
   const formattedDate = currentDate.toLocaleDateString('de-DE', options);
 
+  // Redux: Dispatch and selector hooks
+  const dispatch = useDispatch();
+  const card = useSelector((state) => state.card.cartItems);
+
+  // Handler function for adding item to shopping cart
+  const handleAddToShoppingCard = (item) => {
+    dispatch(addToShoppingCard(item));
+  };
+
+  // useEffect hook for calculating shopping card totals when card or dispatch changes
+  useEffect(() => {
+    dispatch(calculateShoppingCardTotals());
+  }, [card, dispatch]);
+
+  // Render product detail card
   return (
-    <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "column", md: "row", }, justifyContent: "space-evenly", alignItems: "center", }} >
-      <Paper sx={{ display: "flex", flexDirection: { xs: "column", sm: "column", md: "row", }, justifyContent: "space-between", alignItems: "center", }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", sm: "column", md: "row" },
+        justifyContent: "space-evenly",
+        alignItems: "center",
+      }}
+    >
+      {/* Product details */}
+      <Paper
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "column", md: "row" },
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Box>
-          < >
-            <CardMedia
-              component="img"
-              alt={product.name}
-              image={`${url}/${product.image}`}
-              title={product.name}
-              sx={{ objectFit: "contain", maxWidth: "300px" }}
-            />
-          </>
+          <CardMedia
+            component="img"
+            alt={product.name}
+            image={`${url}/${product.image}`}
+            title={product.name}
+            sx={{ objectFit: "contain", maxWidth: "300px" }}
+          />
         </Box>
         <Box>
-          {/* Display product details */}
           <Box style={{ padding: '20px' }}>
             <Typography variant="h4" gutterBottom>
               {product.name}
@@ -52,10 +85,10 @@ const ProductDetailPageCard = ({ product }) => {
             <Typography variant="body1" gutterBottom>
               PZN: {product.pzn}
             </Typography>
-            {/* Add more fields as needed */}
           </Box>
         </Box>
       </Paper>
+      {/* Price and Add to Cart */}
       <Paper
         sx={{
           minHeight: "200px",
@@ -74,7 +107,7 @@ const ProductDetailPageCard = ({ product }) => {
         </Typography>
         <Button
           size="large"
-        // onClick={() => handleAddToShoppingCard(product)}
+          onClick={() => handleAddToShoppingCard(product)}
         >
           <AddShoppingCartIcon />
         </Button>

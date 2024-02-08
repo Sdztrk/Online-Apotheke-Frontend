@@ -1,9 +1,10 @@
 import React, { } from 'react';
-import { Container, Typography, Grid, Link, Box } from '@mui/material';
+import { Container, Typography, Grid, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const typographySx = { textTransform: 'capitalize', mb: 2 };
-  const linkSx = { textDecoration: 'none', mb: 1, maxWidth:"50px"};
+  const linkSx = { textDecoration: 'none', padding: 4, color:"white", maxWidth:"50px"};
 
   const handleContactClick = () => {
     window.location.href = 'mailto:msaidozturk1@gmail.com';
@@ -45,7 +46,7 @@ const Footer = () => {
                   {section}
                 </Typography>
                 {links.map((link, linkIndex) => (
-                  <Link key={linkIndex} href={link.url} color="inherit" sx={linkSx} underline='hover'>
+                  <Link key={linkIndex} to={link.url} color="inherit" style={linkSx} underline='hover'>
                     {link.title}
                   </Link>
                 ))}

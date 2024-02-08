@@ -58,7 +58,6 @@ export const getProductById = (productId) => async (dispatch) => {
     // Store the selected product in session storage
     sessionStorage.setItem("selectedProduct", JSON.stringify(res.data.data))
     dispatch(setSelectedProduct(payload));
-    console.log(res.data.data)
   } catch (error) {
     console.error('Error fetching product by ID:', error);
     toast.error('Server error');

@@ -7,6 +7,7 @@ import { Box, Typography } from '@mui/material';
 import SliderComponent from '../components/layout/SliderComponent';
 import Recommendation from '../components/layout/Recommendation';
 import SpeedDialTooltipOpen from '../components/layout/SpeedDialTooltipOpen';
+import SearchBarComponent from '../components/layout/SearchBarComponent';
 
 const LandingPage = () => {
   // Use a breakpoint value to determine when to render the SliderComponent
@@ -14,7 +15,8 @@ const LandingPage = () => {
 
   return (
     <>
-      <Box sx={{ mt: 15 }}>
+    <SearchBarComponent/>
+      <Box sx={{ mt: 5 }}>
         <Typography gutterBottom variant="h4" component="div" sx={{ textAlign: "center" }} >
           Wo drückt's?
         </Typography>
