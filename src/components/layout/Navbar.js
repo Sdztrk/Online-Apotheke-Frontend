@@ -102,10 +102,15 @@ const ResponsiveAppBar = () => {
   const handleLoginChange = (e) => {
     setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value });
   };
+
+
+
   // refresh navbar
   const handleRefresh = () => {
     window.location.reload(true);
   };
+
+  const [refreshCount, setRefreshCount] = useState(0);
 
   //login submit function
   const handleLoginSubmit = async (e) => {
@@ -116,14 +121,14 @@ const ResponsiveAppBar = () => {
       setEmailErrorLogin(true);
       return; // Do not proceed with form submission if email is invalid
     }
-
     // Dispatch the login action
     await dispatch(login(loginFormData, navigate));
     console.log("comes from handlesubmit")
     console.log(currentUser)
     // Closing login popup after register
     closeLoginModal()
-    handleRefresh()
+    setRefreshCount(refreshCount + 1);
+    // handleRefresh()
   };
 
   return (
@@ -247,7 +252,7 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {currentUser ? (
-                <Box>
+                <Box sx={{display:"flex", flexDirection:"column", width:"80px"}}>
                   <Link
                     component="a"
                     to={'/Admin'}
