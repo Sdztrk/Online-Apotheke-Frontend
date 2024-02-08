@@ -174,9 +174,9 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <Button href={`/${page}`} key={page} onClick={handleCloseNavMenu}>
+                <Link to={`/${page}`} key={page} onClick={handleCloseNavMenu} style={{textDecoration:"none", color:"blue", marginRight:8}} >
                   {page}
-                </Button>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -200,14 +200,15 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+              <Link
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-                href={`/${page}`}
+                to={`/${page}`}
+                style={{textDecoration:"none", color:"white", marginRight:8}}
               >
                 {page}
-              </Button>
+              </Link>
             ))}
           </Box>
           <IconButton aria-label="cart" sx={{ width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
@@ -240,9 +241,9 @@ const ResponsiveAppBar = () => {
             >
               {currentUser ? (
                 <Box>
-                  <MenuItem
+                  <Link
                     component="a"
-                    href='/Admin'
+                    to={'/Admin'}
                     sx={{
                       width: '100%',
                       textAlign: 'left',
@@ -250,10 +251,10 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Admin
-                  </MenuItem>
-                  <MenuItem
+                  </Link>
+                  <Link
                     component="a"
-                    href='/Profile'
+                    to={'/Profile'}
                     sx={{
                       width: '100%',
                       textAlign: 'left',
@@ -261,8 +262,8 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Profile
-                  </MenuItem>
-                  <MenuItem
+                  </Link>
+                  <Link
                     component="a"
                     onClick={handleLogout}
                     sx={{
@@ -272,7 +273,7 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Logout
-                  </MenuItem>
+                  </Link>
                 </Box>
               ) : (
                 <Box>
