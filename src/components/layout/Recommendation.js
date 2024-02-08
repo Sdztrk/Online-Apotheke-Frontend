@@ -11,7 +11,6 @@ const Recommendation = () => {
   const products = useSelector((state) => state.product.data);
   const [visibleProducts, setVisibleProducts] = useState(6);
 
-  console.log(products?.data);
   const cheapProducts = products?.data?.filter((product) => product.price < 20)
 
   useEffect(() => {

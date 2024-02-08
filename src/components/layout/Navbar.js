@@ -28,7 +28,6 @@ const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let currentUser = useSelector((state) => state.auth.currentUser);
-  console.log(currentUser)
   const cardQuantity = useSelector((state) => state.card.cartTotalQuantity);
 
   //navmenu and usermenu email val
@@ -102,15 +101,10 @@ const ResponsiveAppBar = () => {
   const handleLoginChange = (e) => {
     setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value });
   };
-
-
-
   // refresh navbar
   const handleRefresh = () => {
     window.location.reload(true);
   };
-
-  const [refreshCount, setRefreshCount] = useState(0);
 
   //login submit function
   const handleLoginSubmit = async (e) => {
@@ -121,14 +115,12 @@ const ResponsiveAppBar = () => {
       setEmailErrorLogin(true);
       return; // Do not proceed with form submission if email is invalid
     }
+
     // Dispatch the login action
     await dispatch(login(loginFormData, navigate));
-    console.log("comes from handlesubmit")
-    console.log(currentUser)
     // Closing login popup after register
     closeLoginModal()
-    setRefreshCount(refreshCount + 1);
-    // handleRefresh()
+    handleRefresh()
   };
 
   return (
@@ -138,8 +130,6 @@ const ResponsiveAppBar = () => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -184,17 +174,15 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <Link to={`/${page}`} key={page} onClick={handleCloseNavMenu} style={{textDecoration:"none", color:"#1976D2", marginRight:8}} >
-                    {page}
-                </Link>
+                <Button href={`/${page}`} key={page} onClick={handleCloseNavMenu}>
+                  {page}
+                </Button>
               ))}
             </Menu>
           </Box>
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="./"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -212,22 +200,21 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link
+              <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-                to={`/${page}`}
-                style={{textDecoration:"none", color:"white", marginRight:8}}
+                href={`/${page}`}
               >
                 {page}
-              </Link>
+              </Button>
             ))}
           </Box>
-          <Link aria-label="cart" style={{ width: "60px" }} to={"./ShoppingPage"}>
+          <IconButton aria-label="cart" sx={{ width: "80px" }} onClick={() => navigate("./ShoppingPage")}>
             <StyledBadge badgeContent={cardQuantity} color="primary">
               <ShoppingCartOutlinedIcon sx={{ color: "white", fontSize: "large", width: "30px", height: "40px" }} />
             </StyledBadge>
-          </Link>
+          </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -252,10 +239,10 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {currentUser ? (
-                <Box sx={{display:"flex", flexDirection:"column", width:"80px"}}>
-                  <Link
+                <Box>
+                  <MenuItem
                     component="a"
-                    to={'/Admin'}
+                    href='/Admin'
                     sx={{
                       width: '100%',
                       textAlign: 'left',
@@ -263,10 +250,10 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Admin
-                  </Link>
-                  <Link
+                  </MenuItem>
+                  <MenuItem
                     component="a"
-                    to={'/Profile'}
+                    href='/Profile'
                     sx={{
                       width: '100%',
                       textAlign: 'left',
@@ -274,8 +261,8 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Profile
-                  </Link>
-                  <Link
+                  </MenuItem>
+                  <MenuItem
                     component="a"
                     onClick={handleLogout}
                     sx={{
@@ -285,7 +272,7 @@ const ResponsiveAppBar = () => {
                     }}
                   >
                     Logout
-                  </Link>
+                  </MenuItem>
                 </Box>
               ) : (
                 <Box>

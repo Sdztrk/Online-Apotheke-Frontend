@@ -8,7 +8,6 @@ import DetailPageAccordion from '../components/cards/DetailPageAccordion';
 
 const DetailPage = () => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
-  console.log(selectedProduct)
 
   if (!selectedProduct) {
     return <div>Loading...</div>; // or another loading indicator

@@ -23,7 +23,6 @@ const settings = {
 const SliderComponent = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.data);
-  console.log(products?.data);
 
   useEffect(() => {
     // Function to fetch products when the component mounts
