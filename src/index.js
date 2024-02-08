@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import store from './redux';
 import ScrollToTop from './helpers/ScrollToTop';
+import { HashRouter } from 'react-router-dom';
 
 
 
@@ -15,11 +16,11 @@ import ScrollToTop from './helpers/ScrollToTop';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
     <ScrollToTop/>
       <App />
       <ToastContainer />
-    </BrowserRouter>
+      </HashRouter>
   </Provider>
 );
 
