@@ -24,8 +24,8 @@ export const { profile } = profileSlice.actions;
 //profile
 export const getProfile = () => async (dispatch) => {
     try {
-        const id = sessionStorage.getItem('id');
-        const token = sessionStorage.getItem('token');
+        const id = sessionStorage.getItem('id') || null;
+        const token = sessionStorage.getItem('token') || null;
         // console.log(id,token)
         if (!id && !token) throw new Error('Id or token not found!');
 
@@ -52,13 +52,14 @@ export const getProfile = () => async (dispatch) => {
   export const uploadProfile = (formData) => async (dispatch) => {
     try {
       const token = sessionStorage.getItem('token');
-  
+
       const response = await axios.post(`${url}/api/v1/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
+      console.log(response)
   
       if (response.status === 201) {
         // Dispatch the profile action with the updated data
@@ -74,7 +75,5 @@ export const getProfile = () => async (dispatch) => {
       toast.error('Server error');
     }
   };
-
-
 
   export default profileSlice.reducer;

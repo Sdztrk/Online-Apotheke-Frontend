@@ -49,13 +49,14 @@ export const login = (userInfo, navigate) => async (dispatch) => {
       console.log(res.data)
       if (!res.data) throw new Error('Something went wrong!');
 
-      const { token, name, email } = res.data;
+      const { token, name, email,id } = res.data;
 
       // sessionStorage.setItem('id', res.data.id);
       dispatch(auth({ token, currentUser: name, email }));
       sessionStorage.setItem('name', name);
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('id', id);
       
       toast.success("Erfolgreich angemeldet");
     } catch (error) {

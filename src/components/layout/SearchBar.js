@@ -1,11 +1,6 @@
-import { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 
-
-
-const SearchBar = ({setSearchQuery}) => (
+const SearchBar = ({setSearchQuery,setFocus}) => (
     <>
       <TextField
         id="search-bar"
@@ -21,7 +16,8 @@ const SearchBar = ({setSearchQuery}) => (
           display:{xs:"none", sm:"none", md:"flex"}
 
         }}
-        
+        onFocus={()=> setFocus(true)}
+        onBlur={() => setFocus(false)}
       />
     </>
   );

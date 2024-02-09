@@ -4,6 +4,15 @@ import React, { useEffect, useState } from 'react';
 import ProfileCard from '../components/cards/ProfileCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../redux/profileSlice';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { FormControl } from '@mui/material';
+import axios from 'axios';
 
 const ProfilePage = () => {
   const [img, setImg] = useState(null);
@@ -13,7 +22,6 @@ const ProfilePage = () => {
 
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.profile.data);
-  // console.log(userData)
   //function to get users profile
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -29,7 +37,11 @@ const ProfilePage = () => {
 
 
   const url = process.env.REACT_APP_API_BASEURL
-   console.log(`${url}/api/v1/profile`)
+
+
+  const handleRefresh = () => {
+    window.location.reload(true);
+  };
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
@@ -60,20 +72,20 @@ const ProfilePage = () => {
       // Replace 'your_token_here' with your actual Bearer token
       const token = sessionStorage.getItem("token")
       console.log(token)
-      console.log(formData)
+
 
       // Make a POST request to create a new profile
-      const response = await fetch(`${url}/api/v1/profile`, {
-        method: 'POST',
-        body: formData,
+      const response = await axios.post(`${url}/api/v1/profile`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
+
       console.log(response)
       console.log(response.status);
-console.log(response.statusText);
+      console.log(response.statusText);
+      handleRefresh()
 
       // if (response.ok) {
       //   console.log('New profile with image and address created successfully!');
@@ -88,42 +100,42 @@ console.log(response.statusText);
   };
 
   return (
-    <div>
-      <h1>Mein Profile</h1>
+    <Box sx={{ marginTop: "100px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      <Typography variant="h5">Mein Profile</Typography>
       <ProfileCard
         image={userData?.profile?.image}
         name={userData?.data?.name}
         address={userData?.profile?.address}
         email={userData?.data?.email}
       />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
+      <FormControl component="form" onSubmit={handleSubmit}>
+        <Box>
+          <label htmlFor="upload-image">
             Upload Image:
             <input
+              id="upload-image"
               type="file"
               accept="image/*"
               onChange={handleImageChange}
             />
           </label>
-        </div>
-        <div>
-          <label>
-            Address:
-            <input
-              type="text"
-              value={address}
-              onChange={handleAddressChange}
-              placeholder="Enter address"
-            />
-          </label>
-        </div>
-        <div>
-          <button type="submit">Save</button>
-        </div>
-      </form>
-
-    </div>
+        </Box>
+        <Box>
+          <TextField
+            label="Address"
+            type="text"
+            value={address}
+            onChange={handleAddressChange}
+            placeholder="Enter address"
+          />
+        </Box>
+        <Box>
+          <Button type="submit" variant="contained" color="primary">
+            Save
+          </Button>
+        </Box>
+      </FormControl>
+    </Box>
   );
 };
 

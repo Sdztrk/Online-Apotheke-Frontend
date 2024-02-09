@@ -3,16 +3,21 @@ import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { VerticalAlignBottom } from '@mui/icons-material';
+// import { VerticalAlignBottom } from '@mui/icons-material';
 
-const url = process.env.REACT_APP_API_BASEURL
+// const url = process.env.REACT_APP_API_BASEURL
 
 
 const ProfileCard = ({ image, name, address, email }) => {
   return (
     <Card>
-      <Avatar
+      {/* <Avatar
         src={`${url}/${image}`}
+        alt="Profile"
+        sx={{ width: 100, height: 100, borderRadius: '50%', margin: '0 auto' }}
+      /> */}
+      <Avatar
+        src={image}
         alt="Profile"
         sx={{ width: 100, height: 100, borderRadius: '50%', margin: '0 auto' }}
       />

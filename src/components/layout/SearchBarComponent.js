@@ -21,6 +21,8 @@ const url = process.env.REACT_APP_API_BASEURL
 
 const SearchBarComponent = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [showResults, setShowResults] = useState(false); // State to manage whether to show search results
+    const [hovered, setHovered] = useState(false); // State to manage hover state
 
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.data);
@@ -44,10 +46,14 @@ const SearchBarComponent = () => {
                     justifyContent: "center",
                     marginTop: "100px",
                 }}
+                onMouseEnter={() => setHovered(true)} // Set hovered to true on mouse enter
+                onMouseLeave={() => setHovered(false)} // Set hovered to false on mouse leave
             >
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-                {searchQuery &&
+                <SearchBar setFocus={setShowResults} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                { (hovered || showResults)  && searchQuery &&
                     <Box
+                    onMouseOver={() => setShowResults(true)}
+
                         sx={{
                             position: "absolute",
                             top: "50%",
@@ -57,11 +63,11 @@ const SearchBarComponent = () => {
                             width: { xs: "95%", sm: "95%", md: "60%", lg: "40%" },
                             height: { xs: "20%", sm: "15%", md: "30%", lg: "20%" },
                             display:{sx:"none", sm:"none",md:"flex"},
-                            zIndex: 999,
                             marginTop: "-200px",
                             flexDirection: "column",
                             borderRadius:"22px",
-                            overflow:"auto"
+                            overflow:"auto",
+                            zIndex:999
                         }}
                     >
                         {dataFiltered.map((product) => (
@@ -82,6 +88,7 @@ const SearchBarComponent = () => {
                                 key={product._id}
                                 to={`/product/${product._id}`}
                                 onClick={() => handleDetailsClick(product._id)}
+                                onMouseOver={() => setShowResults(true)}
                             >
                                 <span 
                                 style={{

@@ -14,7 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, register, login, updatePayload } from '../../redux/authSlice';
+import { logout, register, login } from '../../redux/authSlice';
+import { getProfile } from '../../redux/profileSlice';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -23,13 +24,28 @@ import { pages } from "../../helpers/constants/Constants"
 import logo from "../../helpers/images/logo.jpg"
 import { Link } from 'react-router-dom';
 
+
+
 const ResponsiveAppBar = () => {
   //routing and dispatching and getting state
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let currentUser = useSelector((state) => state.auth.currentUser);
   const cardQuantity = useSelector((state) => state.card.cartTotalQuantity);
+  const userData = useSelector((state) => state.profile.data);
+  //function to get users profile
 
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if(currentUser) {
+        await dispatch(getProfile());
+      }
+
+    };
+    // Call the function to fetch user profile when the component mounts
+    fetchUserProfile();
+  }, [])
+  
   //navmenu and usermenu email val
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -60,6 +76,7 @@ const ResponsiveAppBar = () => {
   const handleLogout = async () => {
     handleClose()
     await dispatch(logout(navigate));
+    handleRefresh()
   };
   //register popup
   const [isModalOpen, setModalOpen] = useState(false);
@@ -220,7 +237,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={currentUser} src="/static/images/avatar/2.jpg" />
+                <Avatar alt={currentUser} src={userData?.profile?.image} />
               </IconButton>
             </Tooltip>
             <Menu
