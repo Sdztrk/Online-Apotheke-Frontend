@@ -1,6 +1,7 @@
 // Import necessary dependencies and components
-import React, { useEffect } from 'react';
-import { Paper, Typography, CardMedia, Box, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Paper, Typography, CardMedia, Box, Button, Modal, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { addToShoppingCard, calculateShoppingCardTotals } from "../../redux/shoppingCardSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +21,19 @@ const ProductDetailPageCard = ({ product }) => {
   // Redux: Dispatch and selector hooks
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card.cartItems);
+
+  // State for modal
+  const [openModal, setOpenModal] = useState(false);
+
+  // Handler function for opening modal
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  // Handler function for closing modal
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   // Handler function for adding item to shopping cart
   const handleAddToShoppingCard = (item) => {
@@ -56,7 +70,8 @@ const ProductDetailPageCard = ({ product }) => {
             alt={product.name}
             image={`${url}/${product.image}`}
             title={product.name}
-            sx={{ objectFit: "contain", maxWidth: "300px" }}
+            sx={{ objectFit: "contain", maxWidth: "300px", cursor: "pointer" }}
+            onClick={() => handleOpenModal()}
           />
         </Box>
         <Box>
@@ -112,6 +127,49 @@ const ProductDetailPageCard = ({ product }) => {
           <AddShoppingCartIcon />
         </Button>
       </Paper>
+      {/* Modal for enlarged image */}
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="enlarged-image-modal"
+        aria-describedby="enlarged-image-description"
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '50%',
+            height:"70%",
+            bgcolor: 'white',
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <Box sx={{
+            position: 'absolute',
+            top: '1%',
+            right: '1%',
+          }}>
+            <IconButton onClick={handleCloseModal}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <CardMedia
+            component="img"
+            alt={product.name}
+            image={`${url}/${product.image}`}
+            title={product.name}
+            sx={{
+              objectFit: "contain",
+              width: '90%', // Set image width to fill modal
+            }}
+          />
+        </Box>
+      </Modal>
     </Box>
   );
 };
