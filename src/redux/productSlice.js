@@ -69,7 +69,7 @@ export const createProduct = (productData) => async (dispatch) => {
   try {
     const token = sessionStorage.getItem('token');
 
-    const response = await axios.post(`${url}/api/v1/products`, productData, {
+    const response = await axios.post(`${url}/api/v1/product`, productData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -80,6 +80,8 @@ export const createProduct = (productData) => async (dispatch) => {
       dispatch(setProducts({ data: response.data }));
       console.log('New product created successfully!');
       // Additional actions or logic on success
+      toast.success('New product created successfully!');
+
     } else {
       console.error('Failed to create a new product');
       // Handle error if product creation fails

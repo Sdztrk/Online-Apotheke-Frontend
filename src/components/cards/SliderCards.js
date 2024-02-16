@@ -44,7 +44,7 @@ const SliderCards = ({ product }) => {
                 onClick={() => handleDetailsClick(product._id)}
                 style={{ textDecoration: 'none', width: '100%' }}
             >
-                <CardMedia component="img" alt={name} height="200" image={`${url}/${image}`} sx={{objectFit:"contain"}} />
+                <CardMedia component="img" alt={name} height="200" image={image} sx={{objectFit:"contain"}} />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div" sx={{textTransform:"uppercase", fontSize:"1rem"}}>
                         {name}

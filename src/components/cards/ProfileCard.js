@@ -19,7 +19,7 @@ const ProfileCard = ({ image, name, address, email }) => {
       <Avatar
         src={image}
         alt="Profile"
-        sx={{ width: 100, height: 100, borderRadius: '50%', margin: '0 auto' }}
+        sx={{ minWidth: 200, height: 200, borderRadius: '50%', margin: '0 auto' }}
       />
       <CardContent>
         <Typography variant="h5" component="div" textAlign="center">

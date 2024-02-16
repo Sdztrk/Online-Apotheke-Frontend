@@ -100,7 +100,7 @@ const SearchBarComponent = () => {
                             >{product.name} - {product.packageSize} mg
                             </span>
                                 {/* <image src={`${url}/${product.image}`} /> */}
-                                <Avatar style={{paddingRight:"15px"}} alt="User Avatar" src={`${url}/${product.image}`} />
+                                <Avatar style={{paddingRight:"15px"}} alt="User Avatar" src={product.image} />
                             </Link>
                         ))}
                     </Box>}

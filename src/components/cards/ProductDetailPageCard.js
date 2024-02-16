@@ -68,7 +68,7 @@ const ProductDetailPageCard = ({ product }) => {
           <CardMedia
             component="img"
             alt={product.name}
-            image={`${url}/${product.image}`}
+            image={product.image}
             title={product.name}
             sx={{ objectFit: "contain", maxWidth: "300px", cursor: "pointer" }}
             onClick={() => handleOpenModal()}
@@ -161,7 +161,7 @@ const ProductDetailPageCard = ({ product }) => {
           <CardMedia
             component="img"
             alt={product.name}
-            image={`${url}/${product.image}`}
+            image={product.image}
             title={product.name}
             sx={{
               objectFit: "contain",

@@ -37,6 +37,7 @@ const ProfilePage = () => {
 
 
   const url = process.env.REACT_APP_API_BASEURL
+  console.log(url)
 
 
   const handleRefresh = () => {

@@ -10,10 +10,12 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
 const url = process.env.REACT_APP_API_BASEURL;
+console.log(url)
 
 const MedicineCard = ({ product }) => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card.cartItems);
+  console.log(card)
 
   const handleDetailsClick = (id) => {
     dispatch(getProductById(id));
@@ -58,7 +60,7 @@ const MedicineCard = ({ product }) => {
               transition: "transform 0.5s", // Add transition for smooth scaling
 
             }}
-            image={`${url}/${product.image}`}
+            image={product.image}
           />
           <CardContent sx={{ textAlign: "center" }}>
             <Typography sx={{textTransform:"uppercase"}} variant="h6" gutterBottom>

@@ -298,7 +298,7 @@ const Checkout = () => {
                           flex: "1",
                           display: { xs: "none", sm: "block" },
                         }}
-                        image={`${url}/${item.image}`}
+                        image={item.image}
                         alt="product-image"
                       />
                     </MainCard>
