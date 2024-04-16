@@ -9,13 +9,9 @@ import { Link } from "react-router-dom";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
-const url = process.env.REACT_APP_API_BASEURL;
-console.log(url)
-
 const MedicineCard = ({ product }) => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card.cartItems);
-  console.log(card)
 
   const handleDetailsClick = (id) => {
     dispatch(getProductById(id));
@@ -28,7 +24,6 @@ const MedicineCard = ({ product }) => {
   useEffect(() => {
     dispatch(calculateShoppingCardTotals());
   }, [card, dispatch]);
-
 
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useMediaQuery } from '@mui/material';
 import { categories } from "../helpers/constants/categoriesConstants";
 import ComplaintCards from '../components/cards/ComplaintCards';

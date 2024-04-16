@@ -37,7 +37,7 @@ const SuccessfulPayment = () => {
   useEffect(() => {
     // Clear shopping cart on component mount
     dispatch(clearShoppingCard());
-  }, []);
+  }, [dispatch]);
 
   return (
     <StyledContainer component="main" maxWidth="xs">

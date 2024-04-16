@@ -11,7 +11,7 @@ const Recommendation = () => {
   const products = useSelector((state) => state.product.data);
   const [visibleProducts, setVisibleProducts] = useState(6);
 
-  const cheapProducts = products?.data?.filter((product) => product.price < 20)
+  const cheapProducts = products?.data?.filter((product) => product?.price < 20)
 
   useEffect(() => {
     // Function to fetch products when the component mounts
@@ -34,7 +34,7 @@ const Recommendation = () => {
         margin: 'auto',
       }}
     >
-      <Typography gutterBottom variant="h4" component="div" sx={{ textAlign: "center" }} >
+      <Typography gutterBottom variant="h4" component="div" sx={{ textAlign: "center" }}>
         Unsere Empfehlungen Für Sie
       </Typography>
       <Grid container spacing={{ xs: 0, md: 4 }}  >

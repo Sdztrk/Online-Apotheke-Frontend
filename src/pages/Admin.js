@@ -6,6 +6,7 @@ import {createProduct} from "../redux/productSlice"
 
 const Admin = () => {
    const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     name: '',
     brand: '',
@@ -29,22 +30,13 @@ const Admin = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value, checked, files } = e.target;
-    if (name === 'image') {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData((prevData) => ({
-          ...prevData,
-          image: reader.result,
-        }));
-      };
-      reader.readAsDataURL(files[0]);
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: name === 'discount' ? checked : value,
-      }));
-    }
+    const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' ? checked : value;
+    
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: newValue,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -88,16 +80,14 @@ const Admin = () => {
         fullWidth
         required
       />
-      <InputLabel htmlFor="image">Image</InputLabel>
-        <input
-          type="file"
-          id="image"
-          name="image"
-          accept="image/*"
-          onChange={handleChange}
-          required
-          style={{ margin:24 }}
-        />
+      <TextField
+        name="image"
+        label="image"
+        value={formData.image}
+        onChange={handleChange}
+        fullWidth
+        required
+      />
       <FormControl fullWidth>
         <InputLabel>Distribution Form</InputLabel>
         <Select

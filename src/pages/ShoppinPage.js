@@ -31,11 +31,9 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js"
 
-// *************************** STYLES ***************************
-
 const CheckContainer = styled(Container)(({ theme }) => ({
   marginBottom: "20rem",
-  paddingTop:"7rem",
+  paddingTop: "7rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -77,7 +75,7 @@ const Inner = styled(Paper)(({ theme }) => ({
 const InnerText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     fontSize: "0.8rem",
-    display:"flex"
+    display: "flex"
   },
 }));
 
