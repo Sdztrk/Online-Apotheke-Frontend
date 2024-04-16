@@ -1,6 +1,9 @@
-# Medikamentenfinder
+# Ergebnis
+![Overview](./src/helpers/images/overview.gif)
 
-Willkommen zum Medikamentenfinder-Projekt! Diese Website ermöglicht es Benutzern, Medikamente basierend auf ihren individuellen Bedürfnissen zu finden. Die Benutzeroberfläche ist intuitiv gestaltet, sodass Benutzer entweder gezielt nach bestimmten Medikamenten suchen oder durch verschiedene Kategorien stöbern können.
+# Online-Apotheke
+
+Willkommen zur Online-Apotheke! Diese Website ermöglicht es Benutzern, Medikamente basierend auf ihren individuellen Bedürfnissen zu finden. Die Benutzeroberfläche ist intuitiv gestaltet, sodass Benutzer entweder gezielt nach bestimmten Medikamenten suchen oder durch verschiedene Kategorien stöbern können.
 
 ## Funktionen
 
