@@ -53,6 +53,8 @@ const AppRouter = () => {
         <Route path='/Stress' element={<Stress />} />
         <Route path='/Schnupfen' element={<Schnupfen />} />
         <Route path='/Admin' element={<Admin />} />
+        <Route path='/NotAuthorizedPage' element={<NotAuthorizedPage />} />
+
         {/* <Route element={<PrivateRouter/>}>
           <Route path="/details/:id" element={<MovieDetail />} />
         </Route> */}
