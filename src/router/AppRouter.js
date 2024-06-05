@@ -31,17 +31,12 @@ const AppRouter = () => {
     <>
       <Navbar />
       <Routes>
-        <Route path='/' element={<LandingPage />} />
-        {
-          currentUser ? <Route path='/Profile' element={<Profile />} /> : <Route path='/NotAuthorizedPage' element={<NotAuthorizedPage />} />
-        }
-
+        
         <Route element={<PrivateRouter />}>
           <Route path='/Profile' element={<Profile />} />
         </Route>
 
-
-
+        <Route path='/' element={<LandingPage />} />
         <Route path='/Arzneimittel' element={<Arzneimittel />} />
         <Route path='/Vitamine' element={<Vitamine />} />
         <Route path='/Beauty' element={<Beauty />} />
