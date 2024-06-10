@@ -22,16 +22,14 @@ import Stress from "../pages/illnessPages/Stress"
 import Admin from '../pages/Admin'
 import NotAuthorizedPage from '../pages/NotAuthorizedPage'
 import PrivateRouter from './PrivateRouter'
-import { useSelector } from 'react-redux'
 
 
 const AppRouter = () => {
-  const currentUser = useSelector((state) => state.auth.currentUser)
   return (
     <>
       <Navbar />
       <Routes>
-        
+
         <Route element={<PrivateRouter />}>
           <Route path='/Profile' element={<Profile />} />
         </Route>
@@ -54,10 +52,6 @@ const AppRouter = () => {
         <Route path='/Schnupfen' element={<Schnupfen />} />
         <Route path='/Admin' element={<Admin />} />
         <Route path='/NotAuthorizedPage' element={<NotAuthorizedPage />} />
-
-        {/* <Route element={<PrivateRouter/>}>
-          <Route path="/details/:id" element={<MovieDetail />} />
-        </Route> */}
       </Routes>
       <Footer />
     </>
